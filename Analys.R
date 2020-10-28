@@ -272,6 +272,18 @@ stock_data_health_tech %>%
   coord_flip()
 
 
+### Gör lite mer för att få igång Git
+library(tidyverse)
+library(ggplot2)
+stock_data_health_tech %>% 
+  select(name, market, sector, omsättningstillväxt_1year_mean, kursutveckling_6month) %>% 
+  group_by(sector) %>% 
+  arrange(desc(kursutveckling_6m)) %>% 
+  filter(row_number() > max(row_number()) - 5 | row_number() <= 5)
+
+
+
+
 
 
 
