@@ -278,13 +278,21 @@ library(ggplot2)
 stock_data_health_tech %>% 
   select(name, market, sector, omsättningstillväxt_1year_mean, kursutveckling_6month) %>% 
   group_by(sector) %>% 
-  arrange(desc(kursutveckling_6m)) %>% 
+  arrange(desc(kursutveckling_6month)) %>% 
   filter(row_number() > max(row_number()) - 5 | row_number() <= 5)
 
 
 
-### Uppdatering av top & bottom
 
-
-
-
+## Hur ser soliditet ut per branch
+stock_data %>% 
+  group_by(sector) %>% 
+  summarize(average_soliditet = mean(soliditet_latest, na.rm = TRUE)) %>% 
+  arrange(desc(average_soliditet)) %>% 
+  ggplot(aes(reorder(x = sector, average_soliditet), y = average_soliditet, fill = factor(sector))) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  ggtitle("Medel soliditet per sektor") + 
+  xlab("") + 
+  ylab(("Medel soliditet")) + 
+  guides(fill  = guide_legend(""))
