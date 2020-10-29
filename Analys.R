@@ -292,6 +292,7 @@ stock_data %>%
   ggplot(aes(reorder(x = sector, average_soliditet), y = average_soliditet, fill = factor(sector))) + 
   geom_bar(stat = "identity") + 
   coord_flip() + 
+  scale_y_continuous(breaks = seq(0, 70, 5)) + 
   ggtitle("Medel soliditet per sektor") + 
   xlab("") + 
   ylab(("Medel soliditet")) + 
